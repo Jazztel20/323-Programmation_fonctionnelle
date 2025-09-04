@@ -158,3 +158,122 @@ public class Product
     public string Unit { get; set; }
     public decimal Price { get; set; }
 }
+
+
+
+// See https://aka.ms/new-console-template for more information
+using System.Text.RegularExpressions;
+
+//////------------------------------------------------------------------------------------------------------------------------------------------------///
+
+///// Partie 1 Recherche par critère
+///// A. Filtrage basique
+
+//// Tableau de chaînes. C'est ce qu'on va filtrer puis afficher selon différents ordres.
+//string[] words = { "bonjour", "hello", "monde", "vert", "rouge", "bleu", "jaune" };
+
+//// Fonctions de filtrage
+//Func<string, bool> noX = word => !word.Contains("x");   // Exclut les mots contenant le caractère 'x'.
+//Func<string, bool> noX2 = word => !Regex.IsMatch(word,"x"); // Même idée mais via Regex.
+//Func<string, bool> fourOrMore = word => word.Length >= 4;   // Garde les mots dont la longueur >= 4.
+//Func<string, bool> sameAsAvg = word => word.Length == words.Average(word2 => word2.Length); // Garde les mots dont la longueur égale à la moyenne des longueurs.
+
+//// Recueil de fonctions
+//List<Func<string, bool>> filters = new List<Func<string, bool>>();  // On stocke les 4 fonctions dans une liste pour pouvoir les sélectionner par indice à partir de choix utilisateur.
+//// var filters = new List<Func<string, bool>>();
+//filters.Add(noX);   // index 0
+//filters.Add(noX2);  // index 1
+//filters.Add(fourOrMore);    // index 2
+//filters.Add(sameAsAvg); // index 3
+
+////Menu filtre
+//Console.WriteLine($"Liste de mots: {string.Join(',',words)}");
+//Console.WriteLine("1. Pas de x v1");
+//Console.WriteLine("2. Pas de x v2");
+//Console.WriteLine("3. >=4");
+//Console.WriteLine("4. = moyenne de longueur dans la liste");
+//Console.Write("\nChoix:");
+
+//// On lit l'entrée des 4 options et on convertit les choix 1-4 en indice 0-3
+//int choice = Convert.ToInt32(Console.ReadLine())-1;
+
+//// Crée une séquence différée (LINQ) avec seulement les mots qui passent le prédicar choisi.
+//var filtered = words.Where(filters[choice]);
+
+////Menu d'affichage
+//Console.WriteLine("\nOptions d'affichage");
+//Console.WriteLine("1. Ordre naturel");
+//Console.WriteLine("2. Ordre inverse");
+//Console.WriteLine("3. Tri A-Z");
+//Console.WriteLine("4. Tri Z-A");
+//Console.Write("\nChoix d'affichage:");
+
+//// On lit l'entrée des 4 options et on convertit les choix 1-4 en indice 0-3
+//int displayChoice = Convert.ToInt32(Console.ReadLine())-1;
+
+////Transformation selon le choix d'affichage
+//IEnumerable<string> result = displayChoice switch
+//{
+//    1 => filtered,
+//    2 => filtered.Reverse(),
+//    3 => filtered.OrderBy(w => w),
+//    4 => filtered.OrderByDescending(w => w),
+//    _ => filtered
+//};
+
+//// Assemble les mots sélectionnées avec des virgules.
+//Console.WriteLine($"Résultat: {String.Join(',', words.Where(filters[choice]))}");
+
+//////------------------------------------------------------------------------------------------------------------------------------------------------///
+
+///// B. Données parasites 1
+
+//string[] words = { "whatThe!!!", "bonjour", "hello", "monde", "vert", "rouge", "bleu", "jaune", "My kingdom for a horse !", "Ooops I did it again" };
+
+//// Nettoyage: retirer 1 parasite au début et 2 parasites à la fin
+//var cleanWords = words
+//    .Skip(1)    // enlève le premier
+//    .SkipLast(2)    // enlève les deux derniers
+//    .ToArray();
+
+//// Affiche les mots séparés par des virgules
+//Console.WriteLine(string.Join(",", cleanWords));
+
+//////------------------------------------------------------------------------------------------------------------------------------------------------///
+
+////// C. Données parasites 2
+
+//// SkipWhile ne suffit pas pour les parasites au milieu ou à la fin -> il faut un vrai filtrage golbal (Where avec Regex par exemple)
+//string[] words = { "+++++", "<<<<<", ">>>>>", "bonjour", "hello", "@@@@", "vert", "rouge", "bleu", "jaune", "#####", "%%%%%%%" };
+
+//var cleanWords = words
+//    .Where(w => Regex.IsMatch(w, "^[a-zA-Z]"))
+//    .ToArray();
+
+//Console.WriteLine(string.Join(",", cleanWords));
+
+//////------------------------------------------------------------------------------------------------------------------------------------------------///
+
+////// D. Élitisme
+
+//string[] words = { "i am the winner", "hello", "monde", "vert", "rouge", "bleu", "i am the looser" };
+
+//string winner = words.First(); // Premier élément
+//string loser = words.Last(); // Dernier élément
+
+//// string winner = words[0];   // variante winner
+//// string loser = words[^1];    // variante loser
+
+
+//Console.WriteLine($"The winner is : {winner}");
+//Console.WriteLine($"The loser is : {loser}");
+
+//////------------------------------------------------------------------------------------------------------------------------------------------------///
+
+///// Partie 2 Epsilon
+
+//double Epsilon (string word)
+//{
+//    return Math.Sqrt (word.Length);
+//}
+
